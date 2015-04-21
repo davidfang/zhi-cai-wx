@@ -1,0 +1,22 @@
+{
+    "name": "davidfang/zhi-cai-wx",
+    "description": "This is zhi cai wx,by David Fang.",
+    "authors": [
+        {
+            "name": "davidfang",
+            "email": "mw_fang@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*",
+	},
+	"autoload": {
+        "psr-4": {
+            "ZhiCaiWX\\": "",
+        }
+    }  
+	
+}
