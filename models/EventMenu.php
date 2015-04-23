@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class EventMenu extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%event_menu}}';
+        return '{{%wx_event_menu}}';
     }
 
 }

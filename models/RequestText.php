@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class RequestText extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_text}}';
+        return '{{%wx_request_text}}';
     }
 
 }

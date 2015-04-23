@@ -11,6 +11,6 @@ use yii\db\ActiveRecord;
 class ErrorLog extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%error_log}}';
+        return '{{%wx_error_log}}';
     }
 }

@@ -12,7 +12,7 @@ use yii\behaviors\TimestampBehavior;
 class RequestKeyword extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_keyword}}';
+        return '{{%wx_request_keyword}}';
     }
     public function behaviors(){
         return [

@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class EventScan extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%event_scan}}';
+        return '{{%wx_event_scan}}';
     }
 
 }

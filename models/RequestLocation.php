@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class RequestLocation extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_location}}';
+        return '{{%wx_request_location}}';
     }
 
 }

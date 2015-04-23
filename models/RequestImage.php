@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class RequestImage extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_image}}';
+        return '{{%wx_request_image}}';
     }
 
 }

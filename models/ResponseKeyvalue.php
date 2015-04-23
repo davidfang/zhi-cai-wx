@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class ResponseKeyvalue extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%response_key_value}}';
+        return '{{%wx_response_key_value}}';
     }
     /**
      * 获取关键词

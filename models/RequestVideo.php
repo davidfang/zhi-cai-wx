@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class RequestVideo extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_video}}';
+        return '{{%wx_request_video}}';
     }
 
 }

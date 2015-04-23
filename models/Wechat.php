@@ -13,11 +13,26 @@ use yii\behaviors\TimestampBehavior;
 
 class Wechat extends ActiveRecord{
     public static function tableName(){
-        return '{{%wechat}}';
+        return '{{%wx_wechat}}';
     }
     public function behaviors(){
         return [
             TimestampBehavior::className(),
         ];
+    }
+    /**
+     * 获取当前可用的微信配置信息
+     * @param bool $newcache 是否新生成缓存
+     * @return array|bool|mixed|null|ActiveRecord
+     */
+    public static function getCurrent($newcache = false){
+        $cache = Yii::$app->cache;
+        $key = 'wechat_current';
+        $current = $newcache?$newcache:$cache->get($key);
+        if($current == false){
+            $current = self::find(['use'=>1])->asArray()->one();
+            $cache->set($key,$current);
+        }
+        return $current;
     }
 }

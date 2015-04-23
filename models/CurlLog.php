@@ -11,6 +11,6 @@ use yii\db\ActiveRecord;
 class CurlLog extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%curl_log}}';
+        return '{{%wx_curl_log}}';
     }
 }

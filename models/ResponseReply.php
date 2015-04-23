@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class ResponseReply extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%response_reply}}';
+        return '{{%wx_response_reply}}';
     }
 
 }

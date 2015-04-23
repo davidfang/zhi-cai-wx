@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class RequestLink extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_link}}';
+        return '{{%wx_request_link}}';
     }
 
 }

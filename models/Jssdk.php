@@ -11,6 +11,6 @@ use yii\db\ActiveRecord;
 class Jssdk extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%jssdk}}';
+        return '{{%wx_jssdk}}';
     }
 }

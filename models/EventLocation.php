@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class EventLocation extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%event_location}}';
+        return '{{%wx_event_location}}';
     }
 
 }

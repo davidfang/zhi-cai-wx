@@ -12,7 +12,7 @@ use yii\behaviors\TimestampBehavior;
 class User extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%user}}';
+        return '{{%wx_user}}';
     }
     public function behaviors(){
         return [

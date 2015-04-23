@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
 class RequestLog extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_log}}';
+        return '{{%wx_request_log}}';
     }
 }
 

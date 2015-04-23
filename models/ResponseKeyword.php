@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class ResponseKeyword extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%response_keyword}}';
+        return '{{%wx_response_keyword}}';
     }
 
     /**
@@ -22,7 +22,7 @@ class ResponseKeyword extends ActiveRecord
      */
     public function getKeyValue(){
         //return $this->hasOne(ResponseKeyvalue::className(),['keyword_id'=>'id']);//->asArray();
-        //->inverseOf('{{%response_key_value}}')证明两个表是反向关系
+        //->inverseOf('{{%wx_response_key_value}}')证明两个表是反向关系
         return $this->hasMany(ResponseKeyvalue::className(),['keyword_id'=>'id'])->inverseOf('keyWord');//->asArray();
     }
     /**
@@ -30,14 +30,14 @@ class ResponseKeyword extends ActiveRecord
      * @return mixed
      */
     public function getReply(){
-        return $this->hasOne(ResponseReply::className(),['id'=>'reply_id'])->viaTable('{{%response_key_value}}',['keyword_id'=>'id'])->where('type = :type', [':type' => $this->type])->orderBy('priority');//->asArray();
+        return $this->hasOne(ResponseReply::className(),['id'=>'reply_id'])->viaTable('{{%wx_response_key_value}}',['keyword_id'=>'id'])->where('type = :type', [':type' => $this->type])->orderBy('priority');//->asArray();
     }
     /**
      * 获取对应回复信息
      * @return mixed
      */
     public function getReplys(){
-        return $this->hasMany(ResponseReply::className(),['id'=>'reply_id'])->viaTable('{{%response_key_value}}',['keyword_id'=>'id'])->where('type = :type', [':type' => $this->type])->orderBy('priority');//->asArray();
+        return $this->hasMany(ResponseReply::className(),['id'=>'reply_id'])->viaTable('{{%wx_response_key_value}}',['keyword_id'=>'id'])->where('type = :type', [':type' => $this->type])->orderBy('priority');//->asArray();
     }
 
 }

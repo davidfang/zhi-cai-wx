@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class RequestVoice extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%request_voice}}';
+        return '{{%wx_request_voice}}';
     }
 
 }

@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 class EventSubscribe extends ActiveRecord
 {
     public static  function tableName(){
-        return '{{%event_subscribe}}';
+        return '{{%wx_event_subscribe}}';
     }
 
 }
