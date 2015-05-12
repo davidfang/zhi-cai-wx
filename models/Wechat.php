@@ -30,7 +30,7 @@ class Wechat extends ActiveRecord{
         $key = 'wechat_current';
         $current = $newcache?$newcache:$cache->get($key);
         if($current == false){
-            $current = self::find(['use'=>1])->asArray()->one();
+            $current = self::find()->where(['use'=>1])->asArray()->one();
             $cache->set($key,$current);
         }
         return $current;
