@@ -28,7 +28,7 @@ class Wechat extends ActiveRecord{
     public static function getCurrent($newcache = false){
         $cache = Yii::$app->cache;
         $key = 'wechat_current';
-        $current = $newcache?$newcache:$cache->get($key);
+        $current = $newcache?false:$cache->get($key);
         if($current == false){
             $current = self::find()->where(['use'=>1])->asArray()->one();
             $cache->set($key,$current);
