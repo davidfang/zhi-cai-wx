@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_request_keyword"表的model
  *
@@ -13,7 +13,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class WxRequestKeyword extends \yii\db\ActiveRecord
+class WxRequestKeyword extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -40,7 +40,7 @@ class WxRequestKeyword extends \yii\db\ActiveRecord
     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            \yii\behaviors\TimestampBehavior::className(),
         ];
     }
     /**

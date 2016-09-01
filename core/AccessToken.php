@@ -1,6 +1,6 @@
 <?php
 namespace ZhiCaiWX\core;
-use ZhiCaiWX\models\Wechat;
+use ZhiCaiWX\models\WxWechat;
 /**
  * 微信Access_Token的获取与过期检查
  * Created by David Fang.
@@ -33,7 +33,7 @@ class AccessToken{
         if(!isset($accessToken['access_token'])){
             return Msg::returnErrMsg(MsgConstant::ERROR_GET_ACCESS_TOKEN, '获取ACCESS_TOKEN失败');
         }
-        $wechat = Wechat::findOne(['use'=>true]);
+        $wechat = WxWechat::findOne(['use'=>true]);
         $wechat->access_token = $accessToken['access_token'];
         $wechat->expires_in = $accessToken['expires_in'];
         $wechat->save();
@@ -61,7 +61,7 @@ class AccessToken{
      * @return bool
      */
     private static function _checkAccessToken(){
-        $wechat = Wechat::findOne(['use'=>true]);
+        $wechat = WxWechat::findOne(['use'=>true]);
         if(!empty($wechat) and ($wechat->updated_at + $wechat->expires_in) > time()){
             return $wechat->access_token;
         }

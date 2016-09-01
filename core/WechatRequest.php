@@ -1,7 +1,7 @@
 <?php
 namespace ZhiCaiWX\core;
 use ZhiCaiWX\models;
-use ZhiCaiWX\models\User;
+use ZhiCaiWX\models\WxUser;
 /**
  * 处理请求
  * Created by David Fang.
@@ -34,13 +34,13 @@ class WechatRequest{
                         }else{
                             $data = self::eventSubscribe($request);
                         }
-                        $write_log_model = new \ZhiCaiWX\models\EventSubscribe();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventSubscribe();
 
-                        $check_user_info = models\User::findOne($request['fromusername']);//在用户表中检查是否已经有用户信息
+                        $check_WxUser_info = models\WxUser::findOne($request['fromWxUsername']);//在用户表中检查是否已经有用户信息
                         if(empty($check_user_info)){//不存在的用户，新用户全新写入
                             //记录用户基本信息
                             $user_info = UserManage::getUserInfo($request['fromusername']);
-                            $_model_user = new models\User();
+                            $_model_WxUser = new models\WxUser();
                             foreach ($user_info as $key=>$value) {
                                 $_model_user->$key = $value;
                             }
@@ -56,60 +56,60 @@ class WechatRequest{
                     case 'unsubscribe':
                         $data = self::eventUnsubscribe($request);
                         //更新用户为未关注
-                        $write_log_model = new \ZhiCaiWX\models\EventSubscribe();
-                        $user = models\User::findOne(['openid'=>$request['fromusername']]);
+                        $write_log_model = new \ZhiCaiWX\models\WxEventSubscribe();
+                        $user = models\WxUser::findOne(['openid'=>$request['fromWxUsername']]);
                         $user->subscribe = 0;
                         $user->save();
                         break;
                     //扫描二维码
                     case 'scan':
                         $data = self::eventScan($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventScan();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventScan();
                         break;
                     //地理位置
                     case 'location':
                         $data = self::eventLocation($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventLocation();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventLocation();
                         break;
                     //自定义菜单 - 点击菜单拉取消息时的事件推送
                     case 'click':
                         $data = self::eventClick($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 点击菜单跳转链接时的事件推送
                     case 'view':
                         $data = self::eventView($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 扫码推事件的事件推送
                     case 'scancode_push':
                         $data = self::eventScancodePush($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 扫码推事件且弹出“消息接收中”提示框的事件推送
                     case 'scancode_waitmsg':
                         $data = self::eventScancodeWaitMsg($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 弹出系统拍照发图的事件推送
                     case 'pic_sysphoto':
                         $data = self::eventPicSysPhoto($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 弹出拍照或者相册发图的事件推送
                     case 'pic_photo_or_album':
                         $data = self::eventPicPhotoOrAlbum($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 弹出微信相册发图器的事件推送
                     case 'pic_weixin':
                         $data = self::eventPicWeixin($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //自定义菜单 - 弹出地理位置选择器的事件推送
                     case 'location_select':
                         $data = self::eventLocationSelect($request);
-                        $write_log_model = new \ZhiCaiWX\models\EventMenu();
+                        $write_log_model = new \ZhiCaiWX\models\WxEventMenu();
                         break;
                     //群发接口完成后推送的结果
                     case 'masssendjobfinish':
@@ -127,32 +127,32 @@ class WechatRequest{
             //文本
             case 'text':
                 $data = self::text($request);
-                $write_log_model = new \ZhiCaiWX\models\RequestText();
+                $write_log_model = new \ZhiCaiWX\models\WxRequestText();
                 break;
             //图像
             case 'image':
                 $data = self::image($request);
-                $write_log_model = new \ZhiCaiWX\models\RequestImage();
+                $write_log_model = new \ZhiCaiWX\models\WxRequestImage();
                 break;
             //语音
             case 'voice':
                 $data = self::voice($request);
-                $write_log_model = new \ZhiCaiWX\models\RequestVoice();
+                $write_log_model = new \ZhiCaiWX\models\WxRequestVoice();
                 break;
             //视频
             case 'video':
                 $data = self::video($request);
-                $write_log_model = new \ZhiCaiWX\models\RequestVideo();
+                $write_log_model = new \ZhiCaiWX\models\WxRequestVideo();
                 break;
             //位置
             case 'location':
                 $data = self::location($request);
-                $write_log_model = new \ZhiCaiWX\models\RequestLocation();
+                $write_log_model = new \ZhiCaiWX\models\WxRequestLocation();
                 break;
             //链接
             case 'link':
                 $data = self::link($request);
-                $write_log_model = new \ZhiCaiWX\models\RequestLink();
+                $write_log_model = new \ZhiCaiWX\models\WxRequestLink();
                 break;
             default:
                 return ResponsePassive::text($request['fromusername'], $request['tousername'], '收到未知的消息，我不知道怎么处理');
@@ -222,11 +222,11 @@ class WechatRequest{
      * @return string
      */
     public function answer($keyword,&$request){
-        $response_keyword = models\ResponseKeyword::findOne(['keyword'=>$keyword]);
+        $response_keyword = models\WxResponseKeyword::findOne(['keyword'=>$keyword]);
         if(empty($response_keyword)){//没有找到关键词
-            $request_keyword = models\RequestKeyword::findOne(['keyword'=>$keyword]);
+            $request_keyword = models\WxRequestKeyword::findOne(['keyword'=>$keyword]);
             if(empty($request_keyword)){//没有则新建记录
-                $request_keyword = new models\RequestKeyword();
+                $request_keyword = new models\WxRequestKeyword();
                 $request_keyword->keyword = $keyword;
                 $request_keyword->save();
             }else{//已有记录，增加次数

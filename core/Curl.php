@@ -1,6 +1,6 @@
 <?php
 namespace ZhiCaiWX\core;
-use ZhiCaiWX\models\CurlLog;
+use ZhiCaiWX\models\WxCurlLog;
 /**
  *
  * CURL工具
@@ -46,7 +46,7 @@ class Curl {
         }
         if(!empty($ret)){
             if(CURL_LOG){
-                $curl_log = new CurlLog();//存入微信接口请求日志
+                $curl_log = new WxCurlLog();//存入微信接口请求日志
                 $curl_log->queryUrl = $queryUrl;
                 $curl_log->method =$method;
                 $curl_log->is_json =$is_json;

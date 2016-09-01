@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_request_text"表的model
  *
@@ -15,7 +15,7 @@ use Yii;
  * @property string $msgid
  * @property string $created_at
  */
-class WxRequestText extends \yii\db\ActiveRecord
+class WxRequestText extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -41,12 +41,18 @@ class WxRequestText extends \yii\db\ActiveRecord
         ];
     }
     /**
-    * 设置自动创建和更新时间的操作
-    * @inheritdoc
-    */
+     * 设置自动创建和更新时间的操作
+     * @inheritdoc
+     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+
         ];
     }
     /**

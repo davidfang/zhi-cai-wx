@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_request_log"表的model
  *
@@ -13,7 +13,7 @@ use Yii;
  * @property integer $speed
  * @property string $created_at
  */
-class WxRequestLog extends \yii\db\ActiveRecord
+class WxRequestLog extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -42,7 +42,13 @@ class WxRequestLog extends \yii\db\ActiveRecord
     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+
         ];
     }
     /**

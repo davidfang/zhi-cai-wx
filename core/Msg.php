@@ -1,6 +1,6 @@
 <?php
 namespace ZhiCaiWX\core;
-use ZhiCaiWX\models\ErrorLog;
+use ZhiCaiWX\models\WxErrorLog;
 /**
  *
  * 错误提示类
@@ -39,7 +39,7 @@ class Msg {
      * @param $line_code (可能)调用请求行的代码，转换关键变量
      */
     public static function saveWeixinErrMsg($errcode,$errmsg,$file,$line,$line_code){
-        $_model_error_log = new ErrorLog();
+        $_model_error_log = new WxErrorLog();
         $_model_error_log->errcode = $errcode;
         $_model_error_log->errmsg = $errmsg;
         $_model_error_log->file = $file.'('.$line.'行)';

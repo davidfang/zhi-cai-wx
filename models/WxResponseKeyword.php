@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_response_keyword"表的model
  *
@@ -14,7 +14,7 @@ use Yii;
  * @property integer $times
  * @property string $created_at
  */
-class WxResponseKeyword extends \yii\db\ActiveRecord
+class WxResponseKeyword extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -38,12 +38,18 @@ class WxResponseKeyword extends \yii\db\ActiveRecord
         ];
     }
     /**
-    * 设置自动创建和更新时间的操作
-    * @inheritdoc
-    */
+     * 设置自动创建和更新时间的操作
+     * @inheritdoc
+     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+
         ];
     }
     /**
@@ -106,6 +112,32 @@ class WxResponseKeyword extends \yii\db\ActiveRecord
         $options = $this->options;
         return [
             ];
+    }
+
+    /**
+     * 获取关键词对应的回复值
+     * 取的时候使用
+     * $keyword = models\ResponseKeyword::findOne(1);
+     * $keyvalue = $keyword->keyValue;
+     */
+    public function getKeyValue(){
+        //return $this->hasOne(ResponseKeyvalue::className(),['keyword_id'=>'id']);//->asArray();
+        //->inverseOf('{{%wx_response_key_value}}')证明两个表是反向关系
+        return $this->hasMany(WxResponseKeyvalue::className(),['keyword_id'=>'id'])->inverseOf('keyWord');//->asArray();
+    }
+    /**
+     * 获取对应一条回复信息（不适合多图文回复）
+     * @return mixed
+     */
+    public function getReply(){
+        return $this->hasOne(WxResponseReply::className(),['id'=>'reply_id'])->viaTable('{{%wx_response_key_value}}',['keyword_id'=>'id'])->where('type = :type', [':type' => $this->type])->orderBy('priority');//->asArray();
+    }
+    /**
+     * 获取对应回复信息
+     * @return mixed
+     */
+    public function getReplys(){
+        return $this->hasMany(WxResponseReply::className(),['id'=>'reply_id'])->viaTable('{{%wx_response_key_value}}',['keyword_id'=>'id'])->where('type = :type', [':type' => $this->type])->orderBy('priority');//->asArray();
     }
 
 }

@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_response_key_value"表的model
  *
@@ -12,7 +12,7 @@ use Yii;
  * @property integer $reply_id
  * @property string $created_at
  */
-class WxResponseKeyValue extends \yii\db\ActiveRecord
+class WxResponseKeyValue extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -34,12 +34,18 @@ class WxResponseKeyValue extends \yii\db\ActiveRecord
         ];
     }
     /**
-    * 设置自动创建和更新时间的操作
-    * @inheritdoc
-    */
+     * 设置自动创建和更新时间的操作
+     * @inheritdoc
+     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+
         ];
     }
     /**
@@ -99,5 +105,13 @@ class WxResponseKeyValue extends \yii\db\ActiveRecord
         return [
             ];
     }
-
+    /**
+     * 获取关键词
+     * 取的时候使用
+     * $keyword = models\ResponseKeyvalue::findOne(1);
+     * $keyvalue = $keyword->keyWord;
+     */
+    public function getKeyWord(){
+        return $this->hasOne(WxResponseKeyword::className(),['id'=>'keyword_id']);//->asArray();
+    }
 }

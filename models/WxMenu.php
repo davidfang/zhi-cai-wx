@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_menu"表的model
  *
@@ -16,7 +16,7 @@ use Yii;
  * @property integer $updated_at
  * @property string $status
  */
-class WxMenu extends \yii\db\ActiveRecord
+class WxMenu extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -45,7 +45,7 @@ class WxMenu extends \yii\db\ActiveRecord
     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            \yii\behaviors\TimestampBehavior::className(),
         ];
     }
     /**

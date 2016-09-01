@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_event_menu"表的model
  *
@@ -29,7 +29,7 @@ use Yii;
  * @property string $poiname
  * @property string $created_at
  */
-class WxEventMenu extends \yii\db\ActiveRecord
+class WxEventMenu extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -59,12 +59,18 @@ class WxEventMenu extends \yii\db\ActiveRecord
         ];
     }
     /**
-    * 设置自动创建和更新时间的操作
-    * @inheritdoc
-    */
+     * 设置自动创建和更新时间的操作
+     * @inheritdoc
+     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+
         ];
     }
     /**

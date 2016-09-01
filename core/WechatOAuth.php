@@ -92,7 +92,7 @@ class WechatOAuth{
      */
     public static function getUserInfo($accessToken, $openId, $lang='zh_CN'){
         //先去用户表中取用户信息
-        $user_info = models\User::find()->where(['openid'=>$openId])->asArray()->one();
+        $WxUser_info = models\WxUser::find()->where(['openid'=>$openId])->asArray()->one();
         if(empty($user_info)){//用户不存在的情况下，直接去腾讯接口请求
             $queryUrl = 'https://api.weixin.qq.com/sns/userinfo?access_token='. $accessToken . '&openid='. $openId .'&lang=zh_CN';
             $queryAction = 'GET';
@@ -104,7 +104,7 @@ class WechatOAuth{
                 //return false;
                 Msg::returnErrMsg(10000, '获取用户信息失败');
             }else{
-                $_model_user = new models\User();
+                $_model_WxUser = new models\WxUser();
                 foreach ($user_info as $key=>$value) {
                     if($key == 'privilege'){
                         $_model_user->$key = json_encode($value);

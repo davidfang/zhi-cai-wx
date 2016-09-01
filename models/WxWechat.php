@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_wechat"表的model
  *
@@ -20,7 +20,7 @@ use Yii;
  * @property integer $updated_at
  * @property integer $curl_log
  */
-class WxWechat extends \yii\db\ActiveRecord
+class WxWechat extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -49,7 +49,7 @@ class WxWechat extends \yii\db\ActiveRecord
     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            \yii\behaviors\TimestampBehavior::className(),
         ];
     }
     /**
@@ -125,5 +125,19 @@ class WxWechat extends \yii\db\ActiveRecord
         return [
             ];
     }
-
+    /**
+     * 获取当前可用的微信配置信息
+     * @param bool $newcache 是否新生成缓存
+     * @return array|bool|mixed|null|ActiveRecord
+     */
+    public static function getCurrent($newcache = false){
+        $cache = Yii::$app->cache;
+        $key = 'wechat_current';
+        $current = $newcache?false:$cache->get($key);
+        if($current == false){
+            $current = self::find()->where(['use'=>1])->asArray()->one();
+            $cache->set($key,$current);
+        }
+        return $current;
+    }
 }

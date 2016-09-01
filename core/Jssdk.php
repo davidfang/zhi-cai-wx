@@ -46,7 +46,7 @@ class Jssdk {
 
   private function getJsApiTicket() {
     // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
-    $data = models\Jssdk::find()->orderBy('expire_time desc')->one();
+    $data = models\WxJssdk::find()->orderBy('expire_time desc')->one();
     if (empty($data) or $data->expire_time < time()) {
       $accessToken = AccessToken::getAccessToken();
       // 如果是企业号用以下 URL 获取 ticket
@@ -57,7 +57,7 @@ class Jssdk {
 
       $ticket = $res['ticket'];
       if ($ticket) {
-            $data = new models\Jssdk();
+            $data = new models\WxJssdk();
             $data->errcode = $res['errcode'];
             $data->errmsg = $res['errmsg'];
             $data->expire_time = time() + 7100;

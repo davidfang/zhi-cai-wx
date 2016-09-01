@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_user"表的model
  *
@@ -23,7 +23,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class WxUser extends \yii\db\ActiveRecord
+class WxUser extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -54,7 +54,7 @@ class WxUser extends \yii\db\ActiveRecord
     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            \yii\behaviors\TimestampBehavior::className(),
         ];
     }
     /**

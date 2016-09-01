@@ -3,7 +3,7 @@
 namespace ZhiCaiWX\models;
 
 use Yii;
-
+use yii\db\ActiveRecord;
 /**
  * "zc_wx_response_reply"表的model
  *
@@ -26,7 +26,7 @@ use Yii;
  * @property integer $show_times
  * @property string $created_at
  */
-class WxResponseReply extends \yii\db\ActiveRecord
+class WxResponseReply extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -53,12 +53,18 @@ class WxResponseReply extends \yii\db\ActiveRecord
         ];
     }
     /**
-    * 设置自动创建和更新时间的操作
-    * @inheritdoc
-    */
+     * 设置自动创建和更新时间的操作
+     * @inheritdoc
+     */
     public function behaviors(){
         return [
-            yii\behaviors\TimestampBehavior::className(),
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+            ],
+
         ];
     }
     /**

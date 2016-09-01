@@ -2,7 +2,7 @@
 namespace ZhiCaiWX\models;
 use Yii;
 use yii\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
+
 /**
  * Created by David Fang.
  * User: david_fang
